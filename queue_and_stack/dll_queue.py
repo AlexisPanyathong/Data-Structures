@@ -16,10 +16,12 @@ class Queue:
     def enqueue(self, value):
         # We are adding, so set the size to += 1.
         self.size += 1
+        # Return add_to_tail(value) because we add to the tail and remove from the head.
         return self.storage.add_to_tail(value)
         
 
     def dequeue(self):
+        
         if self.size == 0:
             pass
         else:
