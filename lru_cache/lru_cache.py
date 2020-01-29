@@ -46,4 +46,18 @@ class LRUCache:
     the newly-specified value.
     """
     def set(self, key, value):
-        pass
+        # If th
+        if key in self.cache:
+            node = self.cache[key]
+            node.value = value
+            self.storage.move_to_front(self.cache[key])
+            return node.value
+        if len(self.storage) >= self.limit:
+            tail = self.storage.tail
+            self.storage.remove_from_tail()
+            for oldest in self.cache:
+                if self.cache[oldest] == tail:
+                    del self.cache[oldest]
+                    break
+        self.storage.add_to_head(value)
+        self.cache[key] = self.storage.head
