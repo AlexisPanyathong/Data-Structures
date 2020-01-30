@@ -3,6 +3,12 @@ sys.path.append('/queue_and_stack')
 from dll_queue import Queue
 from dll_stack import Stack
 
+# BINARY SEARCH TREE NOTES:
+# DOG, DAD, DWELL
+# BASE = DOG
+# DAD WOULD GO TO THE LEFT BECAUSE IT'S LESS(<) THAN DOG
+# DWELL WOULD GO TO THE RIGHT BECAUSE IT'S GREATER(>) THAN DOG
+# IF THERE IS ANOTHER DOG, IT WOULD GO TO THE RIGHT BECAUSE IT'S EQUAL TO DOG
 
 class BinarySearchTree:
     def __init__(self, value):
@@ -14,14 +20,18 @@ class BinarySearchTree:
     def insert(self, value):
         # If the value is less(<) than than the value of the node being compared, go left.
         if value < self.value:
+            # If left then insert the value in left.
             if self.left:
                 self.left.insert(value)
+            # Otherwise left is equal to the value of the BinarySearchTree
             else:
                 self.left = BinarySearchTree(value)
         else:
+            # If not right then right is equal to the value of the BinarySearchTree
             if not self.right:
                 self.right = BinarySearchTree(value)
             else:
+                # Otherwise insert the value to right.
                 self.right.insert(value)
             
         
@@ -29,9 +39,12 @@ class BinarySearchTree:
     # Return True if the tree contains the value
     # False if it does not
     def contains(self, target):
+        # If target is equal to the self.value, then return True
         if target == self.value:
             return True
+        # If target is less than the self.value
         if target < self.value:
+            # And if self.left is NOT equal to None, then return self.left that contains the target.
             if self.left != None:
                 return self.left.contains(target)
         if target >= self.value:

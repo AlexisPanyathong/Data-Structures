@@ -46,18 +46,30 @@ class LRUCache:
     the newly-specified value.
     """
     def set(self, key, value):
-        # If th
+        # If the ket is in self.cache.
         if key in self.cache:
+            # The node is equal to self.cache and a key is being passed in.
             node = self.cache[key]
+            # The node.value is equal to value.
             node.value = value
+            # Then we the self.cache[key] move to the front.
             self.storage.move_to_front(self.cache[key])
+            # Now return node.value
             return node.value
+        
+        # If the length of the storage is greater(>) or equal to the limit.
         if len(self.storage) >= self.limit:
+            # Then the tail is equal/set to the self.storage.tail
             tail = self.storage.tail
+            # Now we use the remove_from_tail function
             self.storage.remove_from_tail()
+            # Now we are looking for the oldest in the cache.
             for oldest in self.cache:
+                # If we find it, then we want to delete it.
                 if self.cache[oldest] == tail:
                     del self.cache[oldest]
                     break
+        # Now we are adding to the head.        
         self.storage.add_to_head(value)
+        # Then we store it.
         self.cache[key] = self.storage.head
