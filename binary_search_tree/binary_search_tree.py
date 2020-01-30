@@ -15,6 +15,8 @@ class BinarySearchTree:
         self.value = value
         self.left = None
         self.right = None
+        self.queue = Queue()
+        self.stack = Stack()
 
     # Insert the given value into the tree
     def insert(self, value):
@@ -78,25 +80,45 @@ class BinarySearchTree:
     # Print all the values in order from low to high
     # Hint:  Use a recursive, depth first traversal
     def in_order_print(self, node):
-        pass
-
+        # If node then print left node.
+        if node:
+            self.in_order_print(node.left)
+            print('Node values:', node.value)
+            
+        # Then print the right node
+            self.in_order_print(node.right)
+            
     # Print the value of every node, starting with the given node,
     # in an iterative breadth first traversal
     def bft_print(self, node):
-        pass
+        self.queue.enqueue(self)
+        while(self.queue.size > 0):
+            node = self.queue.dequeue()
+            if node.right:
+                self.queue.enqueue(node.right)
+            if node.left:
+                self.queue.enqueue(node.left)
+            print(node.value)
 
     # Print the value of every node, starting with the given node,
     # in an iterative depth first traversal
     def dft_print(self, node):
-        pass
+        self.stack.push(self)
+        while(self.stack.size > 0):
+            node = self.stack.pop()
+            if node.left is not None:
+                self.stack.push(node.left)
+            if node.right is not None:
+                self.stack.push(node.right)
+            print(node.value)
 
     # STRETCH Goals -------------------------
     # Note: Research may be required
 
     # Print In-order recursive DFT
-    def pre_order_dft(self, node):
-        pass
+    # def pre_order_dft(self, node):
+    #     pass
 
-    # Print Post-order recursive DFT
-    def post_order_dft(self, node):
-        pass
+    # # Print Post-order recursive DFT
+    # def post_order_dft(self, node):
+    #     pass
